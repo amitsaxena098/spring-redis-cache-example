@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import com.redisexample.springredisexample.repository.OrderDao;
 @SpringBootApplication
 @RestController
 @RequestMapping("/order")
+@EnableCaching
 public class SpringRedisExampleApplication {
 
 	@Autowired
@@ -35,11 +39,14 @@ public class SpringRedisExampleApplication {
 	}
 	
 	@GetMapping("/{id}")
+	@Cacheable(key = "#id", value = "Order")
+	
 	public Order getOrder(@PathVariable int id) {
 		return orderDao.findOrder(id);
 	}
 	
 	@DeleteMapping("/{id}")
+	@CacheEvict(key = "#id", value = "Order")
 	public String deleteOrder(@PathVariable int id) {
 		return orderDao.deleteOrder(id);
 	}

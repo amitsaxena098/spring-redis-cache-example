@@ -26,6 +26,7 @@ public class OrderDao {
 	}
 	
 	public Order findOrder(int id) {
+		System.out.println("Hitting DB");
 		return (Order) template.opsForHash().get("Order", id);
 	}
 	

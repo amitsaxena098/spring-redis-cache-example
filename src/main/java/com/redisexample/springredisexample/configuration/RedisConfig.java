@@ -2,6 +2,7 @@ package com.redisexample.springredisexample.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,8 +14,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
-	String hostname = "";
-	int port = 0;
+	String hostname = "192.168.233.142";
+	int port = 6379;
+	
 	
 	@Bean
 	public JedisConnectionFactory connectionFactory() {
@@ -25,6 +27,8 @@ public class RedisConfig {
 		
 	}
 	
+	@Bean
+	@Primary
 	public RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
 		template.setConnectionFactory(connectionFactory());

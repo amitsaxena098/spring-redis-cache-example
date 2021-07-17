@@ -1,5 +1,7 @@
 package com.redisexample.springredisexample.entity;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import lombok.AllArgsConstructor;
@@ -11,10 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash("Order")
-public class Order {
+public class Order implements Serializable {
 	
 	@Id
-	String id;
+	int id;
 	String productName;
 	int price;
 	String productCategory;
